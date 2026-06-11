@@ -14,7 +14,7 @@
         <div class="max-w-4xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
                 <div class="p-8">
-                    <form action="#" method="POST" enctype="multipart/form-data" class="space-y-6">
+                    <form action="{{ route('rt.iuran.store') }}" method="POST" enctype="multipart/form-data" class="space-y-6">
                         @csrf
                         
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">

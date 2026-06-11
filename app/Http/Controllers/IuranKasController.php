@@ -31,4 +31,31 @@ class IuranKasController extends Controller
 
         return view('rt.iuran.create', compact('data_warga'));
     }
+
+    public function store(Request $request)
+    {
+        $request->validate([
+            'user_id' => 'required',
+            'bulan' => 'required',
+            'tahun' => 'required|integer',
+            'nominal' => 'required|numeric',
+            'status' => 'required',
+        ]);
+
+        // 2. Masukin ke database IuranKas
+        IuranKas::create([
+            'user_id' => $request->user_id,
+            'bulan' => $request->bulan,
+            'tahun' => $request->tahun,
+            'nominal' => $request->nominal,
+            'status' => $request->status,
+            'keterangan' => $request->keterangan,
+            // Otomatis ngisi identitas RT biar datanya kaga nyasar ke RT lain
+            'perumahan_id' => auth()->user()->perumahan_id,
+            'no_rt' => auth()->user()->no_rt,
+            'no_rw' => auth()->user()->no_rw,
+        ]);
+
+        return redirect()->route('rt.iuran.index')->with('success', 'Data iuran kas berhasil dicatat, Tot!');
+    }
 }
