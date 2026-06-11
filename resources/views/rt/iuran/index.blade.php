@@ -34,7 +34,8 @@
                         </thead>
                         <tbody class="divide-y divide-gray-50">
                             @forelse ($data_iuran as $iuran)
-                            <tr class="hover:bg-green-50/50 transition-colors duration-200">
+                            <!-- INI YANG DIGANTI TOT, ADA x-data="{ showModal: false }" -->
+                            <tr x-data="{ showModal: false }" class="hover:bg-green-50/50 transition-colors duration-200">
                                 <td class="px-6 py-4">
                                     <div class="font-bold text-gray-900">{{ $iuran->warga->name }}</div>
                                 </td>
@@ -51,7 +52,78 @@
                                     </span>
                                 </td>
                                 <td class="px-6 py-4 text-right">
-                                    <a href="#" class="text-blue-600 hover:text-blue-900 text-sm font-bold">Detail</a>
+                                    <!-- INI TOMBOL DETAIL BUAT BUKA POPUP -->
+                                    <button @click="showModal = true" type="button" class="text-blue-600 hover:text-blue-900 text-sm font-bold focus:outline-none">
+                                        Detail
+                                    </button>
+
+                                    <!-- KODINGAN POPUP MODAL (Awalnya Sembunyi) -->
+                                    <div x-show="showModal" style="display: none;" class="fixed inset-0 z-50 overflow-y-auto" aria-labelledby="modal-title" role="dialog" aria-modal="true">
+                                        <!-- Background Item Transparan -->
+                                        <div class="flex items-center justify-center min-h-screen px-4 pt-4 pb-20 text-center sm:p-0">
+                                            <div x-show="showModal" 
+                                                 x-transition:enter="ease-out duration-300" x-transition:enter-start="opacity-0" x-transition:enter-end="opacity-100" 
+                                                 x-transition:leave="ease-in duration-200" x-transition:leave-start="opacity-100" x-transition:leave-end="opacity-0" 
+                                                 @click="showModal = false" class="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" aria-hidden="true"></div>
+
+                                            <!-- Kotak Popup Putih -->
+                                            <div x-show="showModal" 
+                                                 x-transition:enter="ease-out duration-300" x-transition:enter-start="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95" x-transition:enter-end="opacity-100 translate-y-0 sm:scale-100" 
+                                                 x-transition:leave="ease-in duration-200" x-transition:leave-start="opacity-100 translate-y-0 sm:scale-100" x-transition:leave-end="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95" 
+                                                 class="inline-block align-bottom bg-white rounded-3xl text-left overflow-hidden shadow-2xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg w-full relative z-10 border border-gray-100">
+                                                
+                                                <div class="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
+                                                    <div class="sm:flex sm:items-start">
+                                                        <div class="mx-auto flex-shrink-0 flex items-center justify-center h-12 w-12 rounded-full bg-blue-50 sm:mx-0 sm:h-10 sm:w-10">
+                                                            <svg class="h-6 w-6 text-blue-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                                                            </svg>
+                                                        </div>
+                                                        <div class="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left w-full">
+                                                            <h3 class="text-xl font-extrabold text-gray-900 mb-5" id="modal-title">
+                                                                Rincian Data Kas
+                                                            </h3>
+                                                            <div class="space-y-4">
+                                                                <div class="flex justify-between border-b border-gray-100 pb-2">
+                                                                    <span class="text-sm text-gray-500 font-medium">Pembayar</span>
+                                                                    <span class="text-sm font-bold text-gray-900">{{ $iuran->warga->name }}</span>
+                                                                </div>
+                                                                <div class="flex justify-between border-b border-gray-100 pb-2">
+                                                                    <span class="text-sm text-gray-500 font-medium">Periode Iuran</span>
+                                                                    <span class="text-sm font-bold text-gray-900">{{ $iuran->bulan }} {{ $iuran->tahun }}</span>
+                                                                </div>
+                                                                <div class="flex justify-between border-b border-gray-100 pb-2">
+                                                                    <span class="text-sm text-gray-500 font-medium">Nominal</span>
+                                                                    <span class="text-sm font-extrabold text-gray-900">Rp {{ number_format($iuran->nominal, 0, ',', '.') }}</span>
+                                                                </div>
+                                                                <div class="flex justify-between border-b border-gray-100 pb-2">
+                                                                    <span class="text-sm text-gray-500 font-medium">Status</span>
+                                                                    <span class="text-sm font-bold {{ $iuran->status == 'Lunas' ? 'text-green-600' : 'text-red-600' }}">{{ $iuran->status }}</span>
+                                                                </div>
+                                                                <div class="flex justify-between border-b border-gray-100 pb-2">
+                                                                    <span class="text-sm text-gray-500 font-medium">Tanggal Dicatat</span>
+                                                                    <span class="text-sm font-bold text-gray-900">{{ $iuran->created_at->format('d M Y, H:i') }}</span>
+                                                                </div>
+                                                                <div class="pt-2 text-left">
+                                                                    <span class="block text-sm text-gray-500 font-medium mb-2">Keterangan Tambahan</span>
+                                                                    <div class="bg-gray-50 rounded-xl p-3.5 text-sm text-gray-700 font-semibold border border-gray-100">
+                                                                        {{ $iuran->keterangan ?: 'Tidak ada catatan khusus yang dilampirkan.' }}
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <!-- Tombol Tutup -->
+                                                <div class="bg-gray-50/80 px-4 py-4 sm:px-6 flex justify-end">
+                                                    <button @click="showModal = false" type="button" class="w-full inline-flex justify-center rounded-xl border border-gray-300 shadow-sm px-6 py-2.5 bg-white text-base font-bold text-gray-700 hover:bg-gray-50 focus:outline-none transition-all sm:w-auto sm:text-sm active:scale-95">
+                                                        Tutup Rincian
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- SELESAI KODINGAN POPUP -->
                                 </td>
                             </tr>
                             @empty
