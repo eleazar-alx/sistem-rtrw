@@ -9,36 +9,70 @@
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 <body class="antialiased bg-gray-50 text-gray-900 font-[Figtree]">
-    <div class="min-h-screen flex flex-col justify-center items-center p-6">
-        <div class="max-w-3xl w-full text-center space-y-8">
-            <div class="flex justify-center mb-8">
-                <div class="w-24 h-24 bg-blue-600 rounded-3xl flex items-center justify-center shadow-2xl shadow-blue-600/30 rotate-3 hover:rotate-0 transition-transform duration-300">
-                    <svg class="w-12 h-12 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"></path></svg>
-                </div>
-            </div>
-
-            <h1 class="text-4xl md:text-5xl font-extrabold tracking-tight text-gray-900">
-                Sistem Informasi <span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-indigo-600">RT & RW</span> Modern
-            </h1>
-            
-            <p class="text-lg md:text-xl text-gray-500 font-medium max-w-2xl mx-auto leading-relaxed">
-                Kelola data warga, iuran kas, dan pelaporan lingkungan dengan mudah, cepat, dan transparan. Khusus untuk pengurus lingkungan yang ingin *go-digital*.
-            </p>
-
-            <div class="flex flex-col sm:flex-row items-center justify-center gap-4 pt-8">
-                @auth
-                    <a href="{{ url('/dashboard') }}" class="w-full sm:w-auto px-8 py-4 bg-blue-600 hover:bg-blue-700 text-white rounded-2xl font-bold text-lg shadow-xl shadow-blue-600/20 transition-all active:scale-95">Masuk ke Dashboard</a>
-                @else
-                    <a href="{{ route('login') }}" class="w-full sm:w-auto px-8 py-4 bg-blue-600 hover:bg-blue-700 text-white rounded-2xl font-bold text-lg shadow-xl shadow-blue-600/20 transition-all active:scale-95">Masuk (Login)</a>
-                    
-                    <a href="{{ route('register') }}" class="w-full sm:w-auto px-8 py-4 bg-white hover:bg-gray-50 text-gray-900 border-2 border-gray-200 rounded-2xl font-bold text-lg transition-all active:scale-95">Daftar Pengurus Baru</a>
-                @endauth
-            </div>
-            
-            <p class="text-sm text-gray-400 mt-12 font-medium">
-                &copy; {{ date('Y') }} ALX Creative Studio. All rights reserved.
-            </p>
+    <div class="min-h-screen relative flex flex-col">
+        
+        <div class="w-full flex justify-end p-6 sm:p-8 space-x-4 items-center">
+            @auth
+                <a href="{{ url('/dashboard') }}" class="font-bold text-gray-600 hover:text-gray-900 transition">Dashboard</a>
+            @else
+                <a href="{{ route('login') }}" class="font-bold text-gray-600 hover:text-gray-900 transition">Log in</a>
+                <a href="{{ route('register') }}" class="bg-white border border-gray-200 text-gray-700 font-bold py-2 px-4 rounded hover:bg-gray-50 shadow-sm transition">Register</a>
+            @endauth
         </div>
+
+        <div class="flex-1 flex items-center justify-center p-6">
+            
+            <div class="max-w-5xl w-full bg-white rounded-xl shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-gray-100 overflow-hidden flex flex-col md:flex-row">
+                
+                <div class="p-10 md:p-14 md:w-1/2 flex flex-col justify-center">
+                    <h2 class="text-xl sm:text-2xl font-bold text-gray-900 mb-3">Mari mulai mengelola</h2>
+                    <p class="text-sm text-gray-500 mb-8 leading-relaxed">
+                        Sistem informasi RT & RW ini kaya akan fitur untuk mempermudah tugas pengurus. Kami menyarankan Anda memulai dari langkah di bawah ini.
+                    </p>
+                    
+                    <div class="space-y-6 mb-8 pl-2 border-l-2 border-gray-100">
+                        <div class="flex items-start relative">
+                            <div class="absolute -left-[13px] top-1.5 w-6 h-6 bg-white rounded-full flex items-center justify-center border-2 border-[#ff2d20]">
+                                <div class="w-2 h-2 bg-[#ff2d20] rounded-full"></div>
+                            </div>
+                            <div class="ml-6">
+                                <a href="{{ route('login') }}" class="text-sm font-bold text-gray-900 hover:text-[#ff2d20] flex items-center gap-1 group transition-colors">
+                                    Masuk sebagai Pengurus <span class="text-[#ff2d20] group-hover:translate-x-1 transition-transform">↗</span>
+                                </a>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-start relative">
+                            <div class="absolute -left-[13px] top-1.5 w-6 h-6 bg-white rounded-full flex items-center justify-center border-2 border-gray-200">
+                            </div>
+                            <div class="ml-6">
+                                <a href="{{ route('register') }}" class="text-sm font-bold text-gray-900 hover:text-[#ff2d20] flex items-center gap-1 group transition-colors">
+                                    Daftarkan Lingkungan Baru <span class="text-[#ff2d20] group-hover:translate-x-1 transition-transform">↗</span>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div>
+                        <a href="{{ route('login') }}" class="inline-block bg-[#1a202c] hover:bg-black text-white text-sm font-bold px-6 py-3 rounded shadow transition-colors">
+                            Mulai Sekarang
+                        </a>
+                    </div>
+                </div>
+
+                <div class="md:w-1/2 bg-[#fdfdfd] relative overflow-hidden flex items-center justify-center min-h-[300px] border-l border-gray-50">
+                    <div class="absolute inset-0" style="background-image: radial-gradient(#e5e7eb 1px, transparent 1px); background-size: 20px 20px;"></div>
+                    
+                    <div class="relative z-10 flex flex-col items-center rotate-[-10deg] scale-110">
+                        <span class="text-[7rem] sm:text-[9rem] font-black leading-none tracking-tighter absolute -ml-8 -mt-8 select-none text-blue-100">RTRW</span>
+                        <span class="text-[7rem] sm:text-[9rem] font-black leading-none tracking-tighter absolute -ml-4 -mt-4 select-none text-blue-200">RTRW</span>
+                        <span class="text-[7rem] sm:text-[9rem] font-black leading-none tracking-tighter relative drop-shadow-xl select-none" style="background: -webkit-linear-gradient(45deg, #1d4ed8, #ef4444); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">RTRW</span>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+        
     </div>
 </body>
 </html>
