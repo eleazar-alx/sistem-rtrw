@@ -16,9 +16,11 @@ class WargaController extends Controller
     // Fungsi buat baca data (Index)
     public function index()
     {
-        // Hanya warga di perumahan yang sama dengan RT yang login yang tampil
+        // Tarik warga yang perumahan, RT, dan RW-nya sama persis kaya yang login
         $data_warga = User::where('role', 'warga')
-                          ->where('perumahan_id', auth()->user()->perumahan_id) 
+                          ->where('perumahan_id', auth()->user()->perumahan_id)
+                          ->where('no_rt', auth()->user()->no_rt)
+                          ->where('no_rw', auth()->user()->no_rw)
                           ->get()
                           ->groupBy('no_kk');
 
