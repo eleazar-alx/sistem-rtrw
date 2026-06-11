@@ -23,12 +23,12 @@ Route::get('/dashboard', function () {
 // 2. Rute Khusus RT
 Route::middleware(['auth', 'role:rt'])->group(function () {
     Route::get('/dashboard/rt', function () {
-        return view('dashboard-rt'); // <-- Ini yang diubah
+        return view('dashboard-rt'); 
     })->name('dashboard.rt');
-    Route::get('/dashboard/rt/warga', [WargaController::class, 'index'])->name('rt.warga.index');
-    Route::get('/dashboard/rt/warga/{user}/edit', [WargaController::class, 'edit'])->name('rt.warga.edit');
-    Route::put('/dashboard/rt/warga/{user}', [WargaController::class, 'update'])->name('rt.warga.update');
-    Route::delete('/dashboard/rt/warga/{user}', [WargaController::class, 'destroy'])->name('rt.warga.destroy');
+
+    // Cukup 2 baris aja pake RESOURCE! Ini otomatis udah ngebungkus route index, create, store, edit, update, destroy.
+    Route::resource('dashboard/rt/warga', WargaController::class)->names('rt.warga');
+    Route::resource('dashboard/rt/iuran', IuranKasController::class)->names('rt.iuran');
 });
 
 
@@ -40,21 +40,11 @@ Route::middleware(['auth', 'role:rw'])->group(function () {
 });
 
 
-// 4. INI YANG SEMPET HILANG (Rute Profile Bawaan Breeze)
+// 4. Rute Profile Bawaan Breeze
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
-    Route::get('/dashboard/rt/warga/tambah', [WargaController::class, 'create'])->name('rt.warga.create');
-    Route::post('/dashboard/rt/warga/simpan', [WargaController::class, 'store'])->name('rt.warga.store');
-});
-
-Route::middleware(['auth', 'role:rt'])->group(function () {
-    // Route buat Warga yang kemaren
-    Route::resource('dashboard/rt/warga', WargaController::class)->names('rt.warga');
-    
-    // NAH TAMBAHIN INI TOT 👇 Route buat Iuran Kas
-    Route::resource('dashboard/rt/iuran', IuranKasController::class)->names('rt.iuran');
 });
 
 require __DIR__.'/auth.php';
