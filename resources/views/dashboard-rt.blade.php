@@ -34,14 +34,17 @@
                     <span class="inline-block px-3 py-1 bg-gray-200 text-gray-600 text-xs font-semibold rounded-full mt-1">Segera Hadir</span>
                 </div>
 
-                <!-- Menu 3: Segera Hadir -->
-                <div class="bg-gray-50 p-6 rounded-2xl border border-gray-100 opacity-70 cursor-not-allowed">
-                    <div class="w-14 h-14 bg-gray-200 text-gray-400 rounded-xl flex items-center justify-center mb-5">
-                        <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                <!-- Menu 3: Iuran Kas RT -->
+                <!-- Kodingan Baru (Udah idup + bisa diklik) -->
+                <a href="{{ route('rt.iuran.index') }}" class="block bg-white p-6 rounded-2xl shadow-sm border border-gray-100 hover:shadow-lg transition-all duration-300 hover:-translate-y-1 group">
+                    <div class="w-12 h-12 bg-green-100 rounded-xl flex items-center justify-center mb-4 group-hover:bg-green-600 transition-colors">
+                        <svg class="w-6 h-6 text-green-600 group-hover:text-white transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                        </svg>
                     </div>
-                    <h3 class="font-bold text-xl text-gray-800 mb-2">Iuran Kas RT</h3>
-                    <span class="inline-block px-3 py-1 bg-gray-200 text-gray-600 text-xs font-semibold rounded-full mt-1">Segera Hadir</span>
-                </div>
+                    <h3 class="text-lg font-bold text-gray-900 mb-2 group-hover:text-green-600 transition-colors">Iuran Kas RT</h3>
+                    <p class="text-sm text-gray-500">Pantau pemasukan uang kas, catat warga yang lunas, dan tagih yang nunggak.</p>
+                </a>
             </div>
 
         </div>
